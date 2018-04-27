@@ -1,0 +1,27 @@
+<?php 
+mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
+include_once 'connection.php';
+session_start();
+
+if(isset($_POST['add_patient'])){ 
+	$name = $_POST['name'];
+	$birthday = $_POST['birthday'];
+	$gender = $_POST['gender'];
+	$address = $_POST['address'];
+	$phone = $_POST['phone'];
+	$img = $_FILES['img']['name'];
+	$email=$_POST['email'];
+	$room=$_POST['room'];
+
+	$target_dir = "profile/";
+
+	$target_file = $target_dir.basename($_FILES["img"]["name"]); 
+    move_uploaded_file($_FILES["img"]["tmp_name"], $target_file); 
+
+     $query="INSERT INTO patients (`name`, `birthday`, `gender`, `address`, `phone`, `img`, `email`, `room`) values('".$name."','".$birthday."','".$gender."','".$address."','".$phone."', '".$img."', '".$email."', '".$room."')";
+	    mysqli_query($conn,$query);
+	     
+	    	$_SESSION['notification'] = "New patient has been added to records !";
+	    	header("location:addpatient.php");
+	}
+ ?>

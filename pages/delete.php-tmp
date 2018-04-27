@@ -1,0 +1,10 @@
+<?php
+include 'connection.php';
+$del_service = $_GET['b'];
+if (isset($_GET['b'])) {
+	$query  = "delete from services where service_id='".$del_service."'";
+	$result = mysqli_query($conn, $query);
+	//header("location:services.php");
+}
+
+?>
